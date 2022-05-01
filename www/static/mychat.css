@@ -1,0 +1,100 @@
+/* CSSで色々書いてあるが特に覚えてほしいプロパティは以下
+    display, flex https://developer.mozilla.org/ja/docs/Web/CSS/flex
+    flex-direction, https://developer.mozilla.org/ja/docs/Web/CSS/flex-direction
+    justify-content, https://developer.mozilla.org/ja/docs/Web/CSS/justify-content
+    上記を覚えれば画面の配置を変えられる
+
+    margin, https://developer.mozilla.org/ja/docs/Web/CSS/margin
+    padding, https: //developer.mozilla.org/ja/docs/Web/CSS/padding
+    上記を覚えれば画面の余白を変えられる
+    
+    とりあえずこれらを覚えることを目標にしてほしい
+ */
+
+body {
+    font-family: sans-serif
+}
+
+input {
+    font-size: 1.2rem;
+}
+
+#content {
+    margin: 0.5rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#message-container {
+    overflow-y: scroll;
+    height: 100%;
+    background-color: whitesmoke
+}
+
+
+#message-form-header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+
+#message-textarea,
+#user-name {
+    margin: 0.5rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid gainsboro;
+    padding: 0.5rem;
+    border-radius: 10px
+}
+
+#submit-button {
+    border-radius: 10px;
+    background: skyblue;
+    border: none;
+    color: white;
+    padding: 0 1rem;
+    margin-left: 0.5em;
+}
+
+#submit-button:hover {
+    background: deepskyblue;
+}
+
+#message-form-container {
+    margin: 1rem 0;
+}
+
+.message-id,
+.message-user-name,
+.message-date {
+    font-size: 0.8rem;
+
+}
+
+.message-id,
+.message-date {
+    color: gray;
+}
+
+.message-user-name,
+.message-text {
+    word-break: break-all;
+    border-radius: 10px;
+}
+
+.message-user-name {
+    color: cornflowerblue;
+}
+
+.message-text {
+    margin-left: 0.5rem;
+}
+
+.message-group {
+    margin: 0 0.5rem;
+    border-bottom: solid 1px gainsboro;
+}

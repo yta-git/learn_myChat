@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<!-- 言語は日本語であると指定 -->
+<html lang="ja">
+
+<head>
+    <!-- 文字エンコーディングを指定 -->
+    <meta charset="UTF-8">
+
+    <!-- PC, スマホなど解像度が異なるデバイスにも対応させる -->
+    <meta name="viewport" content="width=device-width">
+
+    <!-- タイトル -->
+    <title>MyChat</title>
+
+    <!-- https://favicon.io/emoji-favicons で自動生成したfaviconの設定 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+
+    <!-- Webサイトのメインデザイン -->
+    <link rel="stylesheet" href="/static/mychat.css">
+
+    <!-- axiosと呼ばれ人気のあるHTTP Clientを外部から読み込み -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Webサイトで動作するメインスクリプト -->
+    <script type="text/javascript" src="/static/mychat.js"></script>
+</head>
+
+<body>
+    <!-- id:content メインビュー -->
+    <div id="content">
+        <!-- id:message-container メッセージを表示するビュー -->
+        <div id="message-container"></div>
+        <!-- id: message-form-container メッセージ入力ビュー -->
+        <div id="message-form-container">
+            <!-- id: message-form-header メッセージ入力ビューの上段 -->
+            <div id="message-form-header">
+                <!-- id: user-name ユーザ名入力欄 -->
+                <input id="user-name" placeholder="名無し">
+                <!-- id: submit-button 送信ボタン -->
+                <input id="submit-button" type="submit" value="送信">
+            </div>
+            <!-- id: message-form-footer メッセージ入力ビューの上段 -->
+            <div id="message-form-footer">
+                <!-- id: message-textarea メッセージ入力欄 -->
+                <input id="message-textarea" placeholder="メッセージ" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
