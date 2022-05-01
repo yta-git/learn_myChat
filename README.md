@@ -41,7 +41,7 @@ Webサイト開発勉強用教材
     ```
 1. 依存モジュールをインストール
     ```sh
-    $ pip3 install -r requirements.txt # flask, flask_cors
+    $ sudo pip3 install -r requirements.txt # flask, flask_cors
     ```
 1. `./www/static/mychat.js`をエディタで開きコード1行目の、`const HOST = 'xxx.xxx.xxx.xxx'`という行を`const HOST = '192.168.1.50'`に変更する
 1. 端末(myChatディレクトリにいることを確認)で以下を実行しWebサーバーを起動
