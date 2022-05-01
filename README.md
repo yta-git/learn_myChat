@@ -1,5 +1,5 @@
 # MyChat🍻
-Web開発ハッカソン勉強用教材
+Webサイト開発勉強用教材
 
 ## Webアプリケーション画面
 <img src="https://user-images.githubusercontent.com/24666428/143727528-c9384b52-7fa9-4dc9-b1c4-676590432ce3.jpg" width="70%">
