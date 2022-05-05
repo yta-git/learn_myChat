@@ -201,7 +201,7 @@ def post_message():
 
     # 受け取ったJSON Objectをdb.jsonに追加
     insert_message_to_db_json(
-        {"user_name": user_name, "message": message, "date": date_str}
+        {"user_name": user_name, "message": message + 'だってばよ🍥', "date": date_str}
     )
 
     # メッセージを正常に追加したことを知らせる
@@ -213,4 +213,4 @@ if __name__ == "__main__":
     update_db_json([])
     # ローカルに3000番ポートでサーバーを起動
     # デバッグモードは有効にする
-    app.run(host="xxx.xxx.xxx.xxx", port=3000, debug=True)
+    app.run(host="192.168.200.52", port=3000, debug=True)

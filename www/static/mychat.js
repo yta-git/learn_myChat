@@ -2,7 +2,7 @@
 
 // 自分のネットワーク環境に合わせ変更する
 // 特にHOSTは自分のPCのプライベートIPアドレスを入れる
-const HOST = 'xxx.xxx.xxx.xxx';
+const HOST = '192.168.200.52';
 const PORT = '3000'
 
 // windowの読み込みが完了したら実行される
