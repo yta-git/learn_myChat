@@ -43,11 +43,20 @@
                 <!-- id: submit-button 送信ボタン -->
                 <input id="submit-button" type="submit" value="送信">
             </div>
-            <!-- id: message-form-footer メッセージ入力ビューの上段 -->
+            <!-- id: message-form-footer メッセージ入力ビューの下段 -->
             <div id="message-form-footer">
                 <!-- id: message-textarea メッセージ入力欄 -->
                 <input id="message-textarea" placeholder="メッセージ" />
             </div>
+            <!-- id: message-form-gender 性別入力欄 -->
+            <form id="message-form-gender">
+                <input id="gender-male" type="radio" name="gender" value="male">
+                <label for="gender-male">男性</label>
+                <input id="gender-female" type="radio" name="gender" value="female">
+                <label for="gender-female">女性</label>
+                <input id="gender-other" type="radio" name="gender" value="other">
+                <label for="gender-other">その他</label>
+            </form>
         </div>
     </div>
 </body>

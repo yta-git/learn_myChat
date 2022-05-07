@@ -15,6 +15,7 @@ window.onload = () => {
     const submit_button_el = document.getElementById('submit-button')
     const user_name_el = document.getElementById('user-name')
     const message_textarea_el = document.getElementById('message-textarea')
+    const message_gender_el = document.getElementById('message-form-gender')
 
     // メッセージを画面に描写する必要があるかを判定する変数
     // メッセージ総数を格納する変数
@@ -51,6 +52,8 @@ window.onload = () => {
         const sanitize = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
         // サニタイズ関数
         // ユーザの入力はXSSに気をつけよう
+
+        const gender_table = {'male': '男性', 'female': '女性', 'other': "その他"}
         messages.forEach(item => {
             updated_html += `
             <!-- class: message-group 1メッセージごとのグループ -->
@@ -60,7 +63,7 @@ window.onload = () => {
                     <!-- class: message-id メッセージごとのID -->
                     <span class="message-id">${item.id}</span>
                     <!-- class: message-user-name メッセージごとのユーザ名 -->
-                    <span class="message-user-name">${sanitize(item.user_name)}</span>
+                    <span class="message-user-name">${sanitize(item.user_name)} (${gender_table[item.gender]})</span>
                     <!-- class: message-date メッセージごとの日付 -->
                     <span class="message-date">${item.date}</span>
                 </div>
@@ -89,6 +92,8 @@ window.onload = () => {
         const user_name = user_name_el.value
         // メッセージをテキストエリアから取得する
         const message = message_textarea_el.value
+        // 性別をラジオボタンから取得する
+        const gender = message_gender_el.elements['gender'].value
 
         // POST /message
         // リクエストボディはJSON形式で次のようなオブジェクトを渡す
@@ -100,7 +105,8 @@ window.onload = () => {
         */
         axios.post(api_endpoint, {
                 user_name: user_name,
-                message: message
+                message: message,
+                gender: gender
             })
             .then(response => get_messages()) //送信したメッセージも含め画面に描写する
             .catch(error => console.log(error))// エラー時はエラー内容をコンソールに出力する

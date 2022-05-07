@@ -181,12 +181,24 @@ def post_message():
             jsonify({"status": "ng", "message": "user_name is invalid"}),
             HTTPStatus.BAD_REQUEST,
         )
+    if not user_name:
+        user_name = '名無し'
+
     message = request_json.get("message")
     # messageが文字列であるか確認
-    if type(message) is not str:
+    if type(message) is not str or not message:
         # messageが文字列でない場合はエラーを返す
         return (
             jsonify({"status": "ng", "message": "message is invalid"}),
+            HTTPStatus.BAD_REQUEST,
+        )
+
+    gender = request_json.get("gender")
+    # messageが文字列であるか確認
+    if type(gender) is not str or gender not in ['male', 'female', 'other']:
+        # messageが文字列でない場合はエラーを返す
+        return (
+            jsonify({"status": "ng", "message": "gender is invalid"}),
             HTTPStatus.BAD_REQUEST,
         )
 
@@ -201,7 +213,7 @@ def post_message():
 
     # 受け取ったJSON Objectをdb.jsonに追加
     insert_message_to_db_json(
-        {"user_name": user_name, "message": message + 'だってばよ🍥', "date": date_str}
+        {"user_name": user_name, "message": message + 'だってばよ🍥', "date": date_str, "gender": gender}
     )
 
     # メッセージを正常に追加したことを知らせる
