@@ -2,13 +2,13 @@
 
 // 自分のネットワーク環境に合わせ変更する
 // 特にHOSTは自分のPCのプライベートIPアドレスを入れる
-const HOST = '192.168.200.52';
+const HOST = '192.168.43.237';
 const PORT = '3000'
 
 // windowの読み込みが完了したら実行される
 window.onload = () => {
     // エンドポイントのURL
-    const api_endpoint = `http://${HOST}:${PORT}/message`
+    const api_endpoint = `http://${HOST}:${PORT}/api/v1/messages`
 
     // HTML要素をIDから取得
     const message_container_el = document.getElementById('message-container')
@@ -63,9 +63,11 @@ window.onload = () => {
                     <!-- class: message-id メッセージごとのID -->
                     <span class="message-id">${item.id}</span>
                     <!-- class: message-user-name メッセージごとのユーザ名 -->
-                    <span class="message-user-name">${sanitize(item.user_name)} (${gender_table[item.gender]})</span>
+                    <span class="message-user-name">${sanitize(item.user_name)}</span>
+                    <span class="message-user-name">(${gender_table[item.gender]})</span>
                     <!-- class: message-date メッセージごとの日付 -->
                     <span class="message-date">${item.date}</span>
+                    <button class="message-delete-button" onclick="delete_message(${item.id})">削除</button>
                 </div>
                 <!-- class: message-text メッセージのテキスト -->
                 <span class="message-text">${sanitize(item.message)}</span>
@@ -78,7 +80,7 @@ window.onload = () => {
     }
 
     // メッセージをすべて取得し,メッセージを画面に描写する
-    // GET /message
+    // GET /messages
     const get_messages = () => axios.get(api_endpoint)
         .then(response => { // 取得したメッセージを画面に描写する
             const messages = response.data
@@ -95,7 +97,7 @@ window.onload = () => {
         // 性別をラジオボタンから取得する
         const gender = message_gender_el.elements['gender'].value
 
-        // POST /message
+        // POST /messages
         // リクエストボディはJSON形式で次のようなオブジェクトを渡す
         /* 一例
         {
@@ -111,6 +113,18 @@ window.onload = () => {
             .then(response => get_messages()) //送信したメッセージも含め画面に描写する
             .catch(error => console.log(error))// エラー時はエラー内容をコンソールに出力する
     }
+
+    // メッセージを削除する関数
+    const delete_message = (message_id) => axios.get(api_endpoint + '/' + message_id)
+        .then(response => {
+            let delete_password = prompt('以下のメッセージを削除するならパスワードを入力\n' + response.data[0].message)
+            // 0. 70行目のbuttonを押してここの関数に入りたい(入れない)
+            // 1. プロンプトで削除用パスワードを入力
+            // 2. DELETE /api/v1/message/<message_id>に削除用パスワードのパラメータをつけて送信
+            // 3. サーバ側でパスワード検証
+            // 4. 削除成功 or 失敗
+    })
+    .catch(error => console.log(error)) // エラー時はエラー内容をコンソールに出力する
 
     // Webサイトにアクセスしたら,メッセージをすべて取得し画面に描写する
     get_messages()

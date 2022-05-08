@@ -56,7 +56,7 @@ def update_db_json(db_json):
 
 
 # req_body_json: dict
-# /message APIにPOSTリクエストで渡されたJSON Object(HTTP Request Body)
+# /messages APIにPOSTリクエストで渡されたJSON Object(HTTP Request Body)
 # にidを追加し,それをdb.jsonに書き込む
 # req_body_jsonの一例
 """
@@ -119,7 +119,7 @@ def insert_message_to_db_json(req_body_json):
 # HTTP Requestとは
 # https://developer.mozilla.org/ja/docs/Web/HTTP/Methods
 
-# エンドポイント /message
+# エンドポイント /messages
 # メソッド: GET
 # リクエストヘッダ: 無し
 # リクエストボディ: 無し
@@ -142,13 +142,32 @@ def insert_message_to_db_json(req_body_json):
 ]
 """
 
-
-@app.route("/message", methods=["GET"])
-def get_message():
+@app.route("/api/v1/messages", methods=["GET"])
+@app.route("/api/v1/messages/<message_id>", methods=["GET"])
+def get_messages(message_id=None):
     # db.json(JSON配列)を読み込む
     db_json = read_json(db_json_path)
+
     # ディクショナリをJSON配列に変換し,レスポンスとして返す
-    return jsonify(db_json)
+    # message_idの指定がないなら全部返す
+    if message_id is None:
+        return jsonify(db_json)
+
+    # message_idの指定があるなら該当するものを返す
+    else:
+        if type(message_id) is not str:
+            return (
+                jsonify({"status": "ng", "message": "message_id is invalid"}),
+                HTTPStatus.BAD_REQUEST,
+            )
+
+        for data in db_json:
+            print(data)
+            if str(data['id']) == message_id:
+                return jsonify([data])
+        # message_idが一致するものがなかったら何も返さない
+        else:
+            return (jsonify([]), HTTPStatus.BAD_REQUEST)
 
 
 # エンドポイント: /message
@@ -167,7 +186,7 @@ def get_message():
 # レスポンスとしては,正常に処理が終了した場合
 # {"status": "ok"} を返す
 # エラーが発生した場合は,{"status": "ng", "message": "エラー詳細"}を返す
-@app.route("/message", methods=["POST"])
+@app.route("/api/v1/messages", methods=["POST"])
 def post_message():
     # リクエストボディーをJSON Objectとして取得
     request_json = request.json
@@ -219,10 +238,13 @@ def post_message():
     # メッセージを正常に追加したことを知らせる
     return jsonify({"status": "ok"}), HTTPStatus.OK
 
+@app.route("/api/v1/messages/<message_id>", methods=["DELETE"])
+def delete_message():
+    pass
 
 if __name__ == "__main__":
     # メッセージをすべて削除する
-    update_db_json([])
+    # update_db_json([])
     # ローカルに3000番ポートでサーバーを起動
     # デバッグモードは有効にする
-    app.run(host="192.168.200.52", port=3000, debug=True)
+    app.run(host="192.168.43.237", port=3000, debug=True)
